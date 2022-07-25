@@ -1,0 +1,115 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'myapp/style.css ' %}" />
+
+    <style>
+        #blink {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+    </style>
+
+    <title>Document</title>
+</head>
+<body>
+      
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl max-auto px-4">
+            <div class="flex justify-between">
+              <!--  <div class="flex space-x-7 items-center ">
+                    
+                </div>  -->
+                <div>
+                    <a class="flex items-center py-4 px-2 ml-10" href="">
+                        <image width="60" height="60" src="{% static 'myapp/photo/sh1.png'%}" alt="" />
+                        <span class="text-xl text-gray-500 font-semibold ">AdFinder</span>
+
+                    </a>
+                </div>
+               <!-- <div class="md:center items-center space-x-1"> 
+               
+                </div> -->
+            
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <form class="bg-white m-20 shadow-md mb-4 pb-8 rounded pt-6 px-8" method="post">
+        {% csrf_token %}
+        <div class="md-4">
+            <label for="url" class="block text-gray-700 text-sm font-bold mb-2">Enter Blog URL</label>
+            <input 
+            class="shadow border rounded appearance-none w-full mb-4 py-2 px-3 text-gray-700 leading-tight
+            focus:outline:none focus:shadow:outline"
+
+             type="text"
+             id="url"
+             name="url" />
+       
+        </div>
+        
+        <input class="bg-blue-500 text-white hover:bg-blue-700 rounded font-bold py-2 px-4" type="submit" name="submit" />
+    </form>
+
+    <div class="p-10 m-10">
+        <h3 class="block text-gray-700 text-sm font-bold mb-2">Common Words : {% for word in commonWords %}
+            <span class="
+              inline-flex
+              items-center
+              justify-center
+              px-2
+              py-1
+              text-xs
+              font-bold
+              text-white
+              bg-green-500
+              rounded-full">
+                
+                {{word}}</span>
+            {%  endfor %}</h3>
+
+            <h3 id="blink" class="py-10 text-blue-700 ">Ads Found!</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-3 gap-6">
+                {% for ad in releventAd %}
+           <!-- <h2>{{ad.name}}</h2>
+            <h3>{{ad.tagname}}</h3> -->
+            <a href="{{ad.ad_url}}"> 
+            <div class="rounded shadow-lg overflow-hidden">
+                <image width="300" height="300" src="http://127.0.0.1:8000/{{ad.image}}" alt="" />
+                <div class="font-bold text-xl mb-2">{{ad.name}}</div>
+            </div>
+
+         
+          
+            </a>
+            {% endfor %}
+
+            </div>
+           
+
+    </div>
+   
+
+    <script type="text/javascript">
+        var blink = 
+            document.getElementById('blink');
+  
+        setInterval(function () {
+            blink.style.opacity = 
+            (blink.style.opacity == 0 ? 1 : 0);
+        }, 500); 
+    </script>
+
+   
+</body>
+</html>
